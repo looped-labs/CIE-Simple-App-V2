@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CIE Simple App V2</string>
+    <string name="action_about">About</string>
+    <string name="bt_not_supported">Device does not support Bluetooth</string>
+    <string name="ready_for_conn">Ready for Connection</string>
+    <string name="printer_not_conn">printer not connected</string>
+    <string name="printer_connecting">printer connecting ...</string>
+    <string name="printer_connected">printer connected</string>
+    <string name="printer_saved">Printer Saved as Favorite</string>
+</resources>
