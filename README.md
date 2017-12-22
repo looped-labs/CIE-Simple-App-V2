@@ -7,3 +7,4 @@ This application shows how to print
 * Text with basic formatting
 * Barcode
 * QR Code
+* Unicode Text Printing
