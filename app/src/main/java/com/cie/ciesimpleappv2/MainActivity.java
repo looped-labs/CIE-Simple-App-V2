@@ -223,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
 
             mPrinter.printGrayScaleImage(bmp,1);
 
-            mPrinter.setHighIntensity();
             mPrinter.setAlignmentCenter();
             mPrinter.setBoldOn();
             mPrinter.printTextLine("\nMY COMPANY BILL\n");
@@ -264,9 +263,19 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printLineFeed();
 
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128,BARCODE_WIDTH, BARCODE_HEIGHT, imageAlignment);
+
+            mPrinter.printUnicodeText(" We can print in any language that the android device can display. \n" +
+                    " English - English \n" +
+                    " kannada - ಕನ್ನಡ \n" +
+                    " Hindi - हिंदी \n" +
+                    " Tamil - தமிழ் \n" +
+                    " Telugu - తెలుగు \n" +
+                    " Marathi - मराठी \n" +
+                    " Malayalam - മലയാളം \n" +
+                    " Gujarati - ગુજરાતી \n" +
+                    " Urdu -  اردو" +
+                    "\n");
             //Clearance for Paper tear
-            mPrinter.printLineFeed();
-            mPrinter.printLineFeed();
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
 
@@ -278,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             //wait for printing to complete
             try {
-                Thread.sleep(5000);
+                Thread.sleep(6000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
