@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -144,6 +145,12 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e) {
             DebugLog.logException(e);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mPrinter.onActivityRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private final BroadcastReceiver ReceiptPrinterMessageReceiver = new BroadcastReceiver() {
