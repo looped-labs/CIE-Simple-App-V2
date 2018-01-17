@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.cie.btp.Barcode;
 import com.cie.btp.CieBluetoothPrinter;
 import com.cie.btp.DebugLog;
+import com.cie.btp.FontStyle;
+import com.cie.btp.FontType;
 import com.cie.btp.PrinterWidth;
 
 import static com.cie.btp.BtpConsts.RECEIPT_PRINTER_CONN_DEVICE_NAME;
@@ -232,10 +234,12 @@ public class MainActivity extends AppCompatActivity {
 
             mPrinter.setAlignmentCenter();
             mPrinter.setBoldOn();
+            mPrinter.setCharRightSpacing(10);
             mPrinter.printTextLine("\nMY COMPANY BILL\n");
             mPrinter.setBoldOff();
-            mPrinter.printTextLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            mPrinter.printLineFeed();
+            mPrinter.setCharRightSpacing(0);
+            mPrinter.printTextLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            mPrinter.pixelLineFeed(50);
             // Bill Header End
 
             // Bill Details Start
@@ -254,14 +258,14 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printTextLine("  Total              107220.00\n");
             mPrinter.printTextLine("------------------------------\n");
             mPrinter.printLineFeed();
-            mPrinter.setBoldOn();
+            mPrinter.setFontStyle(true,true, FontStyle.DOUBLE_HEIGHT, FontType.FONT_A);
             mPrinter.printTextLine("    Thank you ! Visit Again   \n");
-            mPrinter.setBoldOff();
+            mPrinter.setFontStyle(false,false, FontStyle.NORMAL, FontType.FONT_A);
             mPrinter.printLineFeed();
             mPrinter.printTextLine("******************************\n");
             mPrinter.printLineFeed();
 
-            mPrinter.printTextLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            mPrinter.printTextLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             mPrinter.printLineFeed();
 
             mPrinter.setAlignmentCenter();
@@ -270,6 +274,9 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printLineFeed();
 
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128,BARCODE_WIDTH, BARCODE_HEIGHT, imageAlignment);
+            mPrinter.setAlignmentCenter();
+            mPrinter.setCharRightSpacing(10);
+            mPrinter.printTextLine("1234567890123\n");
 
             mPrinter.printUnicodeText(" We can print in any language that the android device can display. \n" +
                     " English - English \n" +
