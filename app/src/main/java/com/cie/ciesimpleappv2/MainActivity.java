@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int BARCODE_WIDTH = 384;
     private static final int BARCODE_HEIGHT = 100;
+    private static final int QRCODE_WIDTH = 100;
 
     public static CieBluetoothPrinter mPrinter = CieBluetoothPrinter.INSTANCE;
     private int imageAlignment = 1;
@@ -270,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
             mPrinter.setAlignmentCenter();
 
-            mPrinter.printQRcode("http://www.coineltech.com/",imageAlignment);
+            mPrinter.printQRcode("http://www.coineltech.com/",QRCODE_WIDTH, imageAlignment);
             mPrinter.printLineFeed();
 
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128,BARCODE_WIDTH, BARCODE_HEIGHT, imageAlignment);
