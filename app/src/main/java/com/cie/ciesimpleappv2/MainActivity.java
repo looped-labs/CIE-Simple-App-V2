@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int BARCODE_HEIGHT = 100;
     private static final int QRCODE_WIDTH = 100;
 
-    public static CieBluetoothPrinter mPrinter = CieBluetoothPrinter.INSTANCE;
+    public CieBluetoothPrinter mPrinter = CieBluetoothPrinter.INSTANCE;
     private int imageAlignment = 1;
 
     @Override
