@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.cie.btp.CieBluetoothPrinter;
 import com.cie.btp.DebugLog;
 import com.cie.btp.FontStyle;
 import com.cie.btp.FontType;
+import com.cie.btp.PrintColumnParam;
 import com.cie.btp.PrinterWidth;
 
 import static com.cie.btp.BtpConsts.RECEIPT_PRINTER_CONN_DEVICE_NAME;
@@ -275,11 +278,11 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printLineFeed();
 
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128,BARCODE_WIDTH, BARCODE_HEIGHT, imageAlignment);
-            mPrinter.setAlignmentCenter();
+            //mPrinter.setAlignmentCenter();
             mPrinter.setCharRightSpacing(10);
-            mPrinter.printTextLine("1234567890123\n");
+            mPrinter.printTextLine("  1234567890123\n");
 
-            mPrinter.printUnicodeText(" We can print in any language that the android device can display. \n" +
+            mPrinter.printUnicodeText(" SDK can print in any language that the android device supports and display. \n" +
                     " English - English \n" +
                     " kannada - ಕನ್ನಡ \n" +
                     " Hindi - हिंदी \n" +
@@ -290,6 +293,14 @@ public class MainActivity extends AppCompatActivity {
                     " Gujarati - ગુજરાતી \n" +
                     " Urdu -  اردو" +
                     "\n");
+
+            String[] sCol1 = {"ABC","DEFG","H","IJKLM","XYZ"};
+            PrintColumnParam pcp1stCol = new PrintColumnParam(sCol1,33, Layout.Alignment.ALIGN_NORMAL,22, Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol2 = {":",":",":",":",":"};
+            PrintColumnParam pcp2ndCol = new PrintColumnParam(sCol2,33,Layout.Alignment.ALIGN_CENTER,22);
+            String[] sCol3 = {"₹1.00","₹20.00","₹300.00","₹4,000.00","₹50,000.89"};
+            PrintColumnParam pcp3rdCol = new PrintColumnParam(sCol3,33,Layout.Alignment.ALIGN_OPPOSITE,22);
+            mPrinter.PrintTable(pcp1stCol,pcp2ndCol,pcp3rdCol);
             //Clearance for Paper tear
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
