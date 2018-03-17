@@ -8,3 +8,4 @@ This application shows how to print
 * Barcode
 * QR Code
 * Unicode Text Printing
+* Table Printing
