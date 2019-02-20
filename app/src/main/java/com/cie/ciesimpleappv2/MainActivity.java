@@ -28,6 +28,7 @@ import com.cie.btp.DebugLog;
 import com.cie.btp.FontStyle;
 import com.cie.btp.FontType;
 import com.cie.btp.PrintColumnParam;
+import com.cie.btp.PrintImageColumn;
 import com.cie.btp.PrinterWidth;
 
 import static com.cie.btp.BtpConsts.RECEIPT_PRINTER_CONN_DEVICE_NAME;
@@ -301,6 +302,24 @@ public class MainActivity extends AppCompatActivity {
             String[] sCol3 = {"₹1.00","₹20.00","₹300.00","₹4,000.00","₹50,000.89"};
             PrintColumnParam pcp3rdCol = new PrintColumnParam(sCol3,33,Layout.Alignment.ALIGN_OPPOSITE,22);
             mPrinter.PrintTable(pcp1stCol,pcp2ndCol,pcp3rdCol);
+
+            Bitmap c1 = BitmapFactory.decodeResource(getResources(), R.drawable.c1_100);
+            Bitmap c2 = BitmapFactory.decodeResource(getResources(), R.drawable.c2_100);
+            PrintImageColumn pic1 = new PrintImageColumn(c1, 50, Layout.Alignment.ALIGN_NORMAL);
+            PrintImageColumn pic2 = new PrintImageColumn(c2, 50, Layout.Alignment.ALIGN_OPPOSITE);
+            mPrinter.PrintImageTable(pic1, pic2);
+            mPrinter.printLineFeed();
+
+            pic1 = new PrintImageColumn(c1, 50, Layout.Alignment.ALIGN_OPPOSITE);
+            pic2 = new PrintImageColumn(c2, 50, Layout.Alignment.ALIGN_NORMAL);
+            mPrinter.PrintImageTable(pic1, pic2);
+            mPrinter.printLineFeed();
+
+            pic1 = new PrintImageColumn(c1, 50, Layout.Alignment.ALIGN_CENTER);
+            pic2 = new PrintImageColumn(c2, 50, Layout.Alignment.ALIGN_CENTER);
+            mPrinter.PrintImageTable(pic1, pic2);
+            mPrinter.printLineFeed();
+
             //Clearance for Paper tear
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
