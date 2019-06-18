@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvStatus;
     private Button btnPrint;
+    private CheckBox cbFindBlackMark;
+    private boolean bFindBlackMark;
 
     ProgressDialog pdWorkInProgress;
 
@@ -65,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        tvStatus = (TextView) findViewById(R.id.status_msg);
+        tvStatus = findViewById(R.id.status_msg);
+        cbFindBlackMark = findViewById(R.id.cbFindBlackMark);
+        btnPrint = findViewById(R.id.btnPrint);
 
         pdWorkInProgress = new ProgressDialog(this);
         pdWorkInProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -100,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnPrint = (Button) findViewById(R.id.btnPrint);
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             DebugLog.logTrace("Printer Message Received");
             Bundle b = intent.getExtras();
-
+            if (b == null) {return;}
             switch (b.getInt(RECEIPT_PRINTER_STATUS)) {
                 case RECEIPT_PRINTER_CONN_STATE_NONE:
                     tvStatus.setText(R.string.printer_not_conn);
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     new AsyncPrint().execute();
                     break;
                 case RECEIPT_PRINTER_CONN_DEVICE_NAME:
-                    savePrinterMac(b.getString(RECEIPT_PRINTER_NAME));
+                    savePrinterMac(b.getString(RECEIPT_PRINTER_NAME,""));
                     break;
                 case RECEIPT_PRINTER_NOTIFICATION_ERROR_MSG:
                     String n = b.getString(RECEIPT_PRINTER_MSG);
@@ -218,7 +222,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            bFindBlackMark = cbFindBlackMark.isChecked();
             btnPrint.setEnabled(false);
+            cbFindBlackMark.setEnabled(false);
 
             pdWorkInProgress.setIndeterminate(true);
             pdWorkInProgress.setMessage("Printing ...");
@@ -320,10 +326,13 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.PrintImageTable(pic1, pic2);
             mPrinter.printLineFeed();
 
-            //Clearance for Paper tear
-            mPrinter.printLineFeed();
-            mPrinter.printLineFeed();
-
+            if (bFindBlackMark) {
+                mPrinter.findBlackMarkAndMove(20);
+                } else {
+                //Clearance for Paper tear
+                mPrinter.printLineFeed();
+                mPrinter.printLineFeed();
+            }
             return null;
         }
 
@@ -339,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
             }
             mPrinter.disconnectFromPrinter();
             btnPrint.setEnabled(true);
+            cbFindBlackMark.setEnabled(true);
             pdWorkInProgress.cancel();
         }
     }
