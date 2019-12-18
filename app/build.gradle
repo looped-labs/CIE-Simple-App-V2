@@ -6,8 +6,8 @@ android {
         applicationId "com.cie.ciesimpleappv2"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 228
-        versionName "2.2.8"
+        versionCode 229
+        versionName "2.2.9"
     }
     buildTypes {
         release {

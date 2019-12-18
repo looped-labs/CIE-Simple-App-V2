@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.text.TextPaint;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -333,6 +335,16 @@ public class MainActivity extends AppCompatActivity {
                 mPrinter.printLineFeed();
                 mPrinter.printLineFeed();
             }
+            TextPaint tp = new TextPaint();
+            tp.setColor(Color.BLACK);
+
+            for (int i = 16; i <48;i++) {
+                tp.setTextSize(i);
+                mPrinter.printUnicodeText("नमस्ते", Layout.Alignment.ALIGN_NORMAL, tp);
+            }
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
             return null;
         }
 
